@@ -22,6 +22,10 @@ public class Inventory {
 
     }
 
+    public Item[] getItems() {
+        return items;
+    }
+
     public void printInventory() {
         System.out.println("***************");
         for (Item item : items) {
@@ -33,11 +37,15 @@ public class Inventory {
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
-            if (items[i].getName() != "Aged Brie"
+            if (!"Aged Brie".equals(items[i].getName())
                     && items[i].getName() != "Backstage passes to a TAFKAL80ETC concert") {
                 if (items[i].getQuality() > 0) {
                     if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
                         items[i].setQuality(items[i].getQuality() - 1);
+                    }
+                    if (items[i].getName() == "Conjured Mana Cake") {
+                        items[i].setQuality(items[i].getQuality() - 1);
+                        //Conjured Mana Cake item degrade in Quality twice as fast as normal items
                     }
                 }
             } else {
@@ -56,9 +64,10 @@ public class Inventory {
                                 items[i].setQuality(items[i].getQuality() + 1);
                             }
                         }
+                        }
                     }
                 }
-            }
+
 
             if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
                 items[i].setSellIn(items[i].getSellIn() - 1);
